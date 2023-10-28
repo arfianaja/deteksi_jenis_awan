@@ -1,0 +1,5 @@
+ cumulus
+ cumulunimbus
+ stratus
+ nimbostratus
+ stratocumulus
