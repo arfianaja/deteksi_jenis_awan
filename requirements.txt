@@ -2,3 +2,5 @@ streamlit
 sklearn
 scikit-image
 Pillow
+tensorflow
+numpy
