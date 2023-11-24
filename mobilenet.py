@@ -19,10 +19,10 @@ st.write('Upload gambar')
 # Create a file uploader
 uploaded_file = st.file_uploader('Pilih gambar...', type=['jpg', 'jpeg', 'png'])
 
-button_col1, button_col2 = st.columns([1,19])
+button_col1, button_col2 = st.columns([1, 19])
 detect_button = button_col1.button('Deteksi')
 
-#  Display the reset button only when the image is uploaded
+# Display the reset button only when the image is uploaded
 if uploaded_file and detect_button:
     reset_button = button_col2.button('Reset')
 
@@ -59,28 +59,31 @@ if detect_button:
             uploaded_file = None
             st.session_state.reset_button = False
 
+        if top_2_probabilities[0] >= 0.7:
+            # Display the uploaded image and classification results
+            col1, col2 = st.columns([1, 3])
+            with col1:
+                st.image(uploaded_file, caption='Gambar yang Diunggah', width=400)
 
-        # Display the uploaded image and classification results
-        col1, col2 = st.columns([1, 3])
-        with col1:
-            st.image(uploaded_file, caption='Gambar yang Diunggah', width=400)
+            with col2:
+                st.write('Kelas yang Diprediksi:', predicted_class)
+                st.write('Probabilitas Teratas 2 Kelas:')
+                for i in range(len(top_2_class_names)):
+                    if top_2_class_names[i] == predicted_class:
+                        bar_color = 'orange'
+                        label_color = 'orange'
+                    else:
+                        bar_color = 'blue'
+                        label_color = 'black'
+                    st.write(f'{top_2_class_names[i]}: {top_2_probabilities[i] * 100:.2f}%')
+                    placeholder = st.empty()
+                    placeholder.markdown(
+                        f'<div style="background-color: {bar_color}; width: {top_2_probabilities[i] * 100}%; height: 25px;"></div>',
+                        unsafe_allow_html=True
+                    )
+        else:
+            st.write("Tidak Diketahui")
 
-        with col2:
-            st.write('Kelas yang Diprediksi:', predicted_class)
-            st.write('Probabilitas Teratas 2 Kelas:')
-            for i in range(len(top_2_class_names)):
-                if top_2_class_names[i] == predicted_class:
-                    bar_color = 'orange'
-                    label_color = 'orange'
-                else:
-                    bar_color = 'blue'
-                    label_color = 'black'
-                st.write(f'{top_2_class_names[i]}: {top_2_probabilities[i]*100:.2f}%')
-                placeholder = st.empty()
-                placeholder.markdown(
-                    f'<div style="background-color: {bar_color}; width: {top_2_probabilities[i]*100}%; height: 25px;"></div>',
-                    unsafe_allow_html=True
-                )
         # Expander untuk informasi tentang kelas awan
         expander = st.expander('Informasi Lengkap')
         with expander:
