@@ -17,7 +17,7 @@ st.title('Klasifikasi Jenis Awan')
 st.write('Upload gambar')
 
 # Create a file uploader
-uploaded_file = st.file_uploader('Pilih gambar...', type=['jpg', 'jpeg', 'png'], max_upload_size=500 * 1024 * 1024)
+uploaded_file = st.file_uploader('Pilih gambar...', type=['jpg', 'jpeg', 'png'])
 
 button_col1, button_col2 = st.columns([1, 19])
 detect_button = button_col1.button('Deteksi')
@@ -25,6 +25,17 @@ detect_button = button_col1.button('Deteksi')
 # Display the reset button only when the image is uploaded
 if uploaded_file and detect_button:
     reset_button = button_col2.button('Reset')
+
+# Check the file size after upload
+if uploaded_file:
+    file_size = os.fstat(uploaded_file.file.fileno()).st_size
+    max_file_size = 500 * 1024 * 1024  # 500 MB in bytes
+
+    if file_size > max_file_size:
+        st.warning(f"File size exceeds the maximum limit of 500 MB. Please choose a smaller file.")
+    else:
+        # Continue processing the file
+        st.success(f"File size: {file_size} bytes. Proceeding with the analysis.")
 
 if detect_button:
     if uploaded_file is not None:
