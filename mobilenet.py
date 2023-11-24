@@ -85,17 +85,17 @@ if detect_button:
         expander = st.expander('Informasi Lengkap')
         with expander:
             # Menyembunyikan informasi jika tombol reset telah diklik
-            if uploaded_file:
+            if uploaded_file and top_2_probabilities[0] >= 0.7:
                 if predicted_class == 'cumulus':
                     st.write('Informasi tentang Cumulus:')
-                    col1, col2 = st.columns([3,2])
+                    col1, col2 = st.columns([3, 2])
                     with col2:
                         # Specify the path to your image in the assets folder
                         image_path = 'assets/cumulus.jpg'  # Update with your image file name and path
-                            
+
                         # Display the image
                         st.image(image_path, caption='Cumulus Image', width=500)
-                        
+
                     with col1:
                         st.subheader('Definisi')
                         st.write('Awan terpisah, umumnya padat dan bergaris tajam, berkembang secara vertical bentuk gundukan, kubah atau menara, bagian atasnya menonjol menyerupai kembang kol. Bagian atas awan yang diterangi matahari sebagina besar berwarna putih cemerlang, alasnya relatif gelap dan hampir horizontal. Terkadang cumulus compang-camping.')
@@ -178,3 +178,5 @@ if detect_button:
                             st.write('Nimbostratus umumnya mencakup wilayah yang luas dan luasnya secara vertical. Ini terdiri dari tetesan air (terkadang sangat dingin) atau campuran partikel cair dan padat. Konsentrasi partikel yang tinggi dan luasnya awan secara vertikal menghalangi sinar matahari langsung untuk dapat diamati melaluinya. awan nimbostratus dapat ditemukan relatif dekat dengan permukaan tanah, namun puncaknya dapat memanjang hingga ketingkat awan tengah. Ketebalan awan nimbostratus membantu memberikan tampilan yang lebih gelap dibandungkan awan lainnya.')
                             st.subheader('Penafsiran')
                             st.write('Terkadang hujan, umumnya menandakan ketidakstabilan atmosfer. Terjadi tepat sebelum oklusi antara front dingin dan front hangat.')
+                else:
+                    st.write('Informasi tentang kelas lainnya')
