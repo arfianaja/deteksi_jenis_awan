@@ -29,7 +29,8 @@ if uploaded_file and detect_button:
 
 # Check the file size after upload
 if uploaded_file:
-    file_size = os.fstat(uploaded_file.file.fileno()).st_size
+    file_content = uploaded_file.getvalue()
+    file_size = len(file_content)
     max_file_size = 500 * 1024 * 1024  # 500 MB in bytes
 
     if file_size > max_file_size:
