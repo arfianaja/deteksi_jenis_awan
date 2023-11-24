@@ -17,7 +17,7 @@ st.title('Klasifikasi Jenis Awan')
 st.write('Upload gambar')
 
 # Create a file uploader
-uploaded_file = st.file_uploader('Pilih gambar...', type=['jpg', 'jpeg', 'png'])
+uploaded_file = st.file_uploader('Pilih gambar...', type=['jpg', 'jpeg', 'png'], max_upload_size=500 * 1024 * 1024)
 
 button_col1, button_col2 = st.columns([1, 19])
 detect_button = button_col1.button('Deteksi')
