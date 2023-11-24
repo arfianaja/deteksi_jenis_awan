@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image
 import tensorflow as tf
 import numpy as np
+import os
 
 # Set the page width
 st.set_page_config(layout="wide")
